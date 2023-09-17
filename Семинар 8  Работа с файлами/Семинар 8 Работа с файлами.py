@@ -24,26 +24,27 @@ def show_menu():
 def work_with_phonebook():
     choice = show_menu()
     phone_book = read_txt("phone.txt")
+    phone_book_w = write_txt("phone.txt", phone_book)
     while choice != 7:
         if choice == 1:
             print_result(phone_book)
         elif choice == 2:
             last_name = input("lastname ")
             print(find_by_lastname(phone_book, last_name))
-        # elif choice == 3:
-        #     last_name = input("lastname ")
-        #     new_number = input("new number ")
-        #     print(change_number(phone_book, last_name, new_number))
-        # elif choice == 4:
-        #     lastname = input("lastname ")
-        #     print(delete_by_lastname(phone_book, lastname))
+        elif choice == 3:
+            last_name = input("lastname ")
+            new_number = input("new number ")
+            print(change_number(phone_book_w, last_name, new_number))
+        elif choice == 4:
+            lastname = input("lastname ")
+            print(delete_by_lastname(phone_book, lastname))
         elif choice == 5:
             number = input("number ")
             print(find_by_number(phone_book, number))
-        # elif choice == 6:
-        #     user_data = input("new data ")
-        #     add_user(phone_book, user_data)
-        #     write_txt("phonebook.txt", phone_book)
+        elif choice == 6:
+            user_data = input("new data ")
+            add_user(phone_book, user_data)
+            write_txt("phonebook.txt", phone_book)
         choice = show_menu()
 
 
@@ -60,7 +61,7 @@ def read_txt(filename):
 
 
 def write_txt(filename, phone_book):
-    with open("phone.txt", "w", encoding="utf-8") as phout:
+    with open(filename, "w", encoding="utf-8") as phout:
         for i in range(len(phone_book)):
             s = ""
             for v in phone_book[i].values():
@@ -68,10 +69,25 @@ def write_txt(filename, phone_book):
             phout.write(f"{s[:-1]}\n")
 
 
-def print_result(phone_book):
+def print_result(phone_book):  # 1. Распечатать справочник
     for dict in phone_book:
         x = [*dict.values()]
         print(x)
+
+
+def find_by_lastname(phone_book, last_name):  # 2. Найти телефон по фамилии
+    for dict in phone_book:
+        if dict["Фамилия"] == str(last_name):
+            print(dict.get("Телефон"))
+            break
+
+
+def change_number(phone_book, last_name, new_number):  # 3. Изменить номер телефона
+    for dict in phone_book:
+        if dict["Фамилия"] == str(last_name):
+            dict["Фамилия"] = int(new_number)
+            print(dict["Фамилия"])
+            break
 
 
 def find_by_number(phone_book, number):  # 5. Найти абонента по номеру телефона
@@ -91,13 +107,6 @@ def delete_by_lastname(phone_book, lastname):
 
 def add_user(phone_book, user_data):
     re
-
-
-def find_by_lastname(phone_book, last_name):  # 2. Найти телефон по фамилии
-    for dict in phone_book:
-        if dict["Фамилия"] == str(last_name):
-            print(dict.get("Телефон"))
-            break
 
 
 work_with_phonebook()
