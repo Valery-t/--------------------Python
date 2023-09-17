@@ -28,3 +28,15 @@ print(check_ritm(phrase))
     print("Парам пам-пам")
 else:
     print("Пам парам") """
+
+def check_rhitm(a):
+    new_set = set(map(lambda x: x.count('а'), a.split()))
+    print(new_set)
+    if len(new_set)==1:
+        print("Парам пам-пам")
+    else:
+        print("Пам парам")
+a = "пара-ра-рам рам-пам-папам па-ра-па-да"
+b = "пара-ра-рам пара-пам дадададаза лалалалалала"
+check_rhitm(a)
+check_rhitm(b)
