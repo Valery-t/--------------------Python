@@ -35,10 +35,12 @@ def work_with_phonebook():
             new_number = input("Новый номер: ")
             phone_book = change_number(phone_book, last_name, new_number)
             print(f'Номер телефона изменен {write_txt("phone.txt",phone_book)}')
+            phone_book = read_txt("phone.txt")
         elif choice == 4:
             lastname = input("Фамилия: ")
             phone_book = delete_by_lastname(phone_book, lastname)
             print(f'Абонент удален {write_txt("phone.txt",phone_book)}')
+            phone_book = read_txt("phone.txt")
         elif choice == 5:
             number = input("Номер: ")
             print(find_by_number(phone_book, number))
@@ -68,7 +70,7 @@ def write_txt(filename, phone_book):
             s = ""
             for v in phone_book[i].values():
                 s += v + ","
-            phout.write(f"{s[:-1]}\n")
+            phout.write(f"{s[:-1]}")
 
 
 def print_result(phone_book):  # 1. Распечатать справочник
@@ -102,7 +104,7 @@ def find_by_number(phone_book, number):  # 5. Найти абонента по �
             print(f'Фамилия: {dict.get("Фамилия")}')
 
 
-def add_data():
+def add_data():  # 6. Добавить абонента
     surname = str(input("Введите фамилию: "))
     name = str(input("Введите имя: "))
     phone = int(input("Введите телефон: "))
@@ -110,7 +112,7 @@ def add_data():
     return surname, name, phone, describe
 
 
-def write_user(filename, data):  # 6. Добавить абонента в справочник
+def write_user(filename, data):  # 6.Записать абонента в справочник
     with open(filename, "a", encoding="utf-8") as file:
         file.write(f"{data[0]},{data[1]},{data[2]},{data[3]}\n")
 
